@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YURI MODZ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+            margin: 0 auto;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(138, 43, 226, 0.3);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .logo-text h1 {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .logo-text p {
+            color: #a0a0c0;
+            font-size: 12px;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(46, 213, 115, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(46, 213, 115, 0.3);
+        }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #2ed573;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .status-text {
+            color: #2ed573;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .device-info {
+            color: #a0a0c0;
+            font-size: 12px;
+            text-align: right;
+            margin-top: 5px;
+        }
+        .login-section {
+            background: linear-gradient(145deg, rgba(138, 43, 226, 0.15), rgba(102, 126, 234, 0.15));
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .login-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        .login-title {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .login-subtitle {
+            color: #a0a0c0;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .key-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            text-align: center;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .key-input:focus {
+            border-color: #8a2be2;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+        }
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .login-button:hover {
+            transform: translateY(-2px);
+        }
+        .error-msg {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff6b6b;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        .success-dialog {
+            background: rgba(46, 213, 115, 0.1);
+            border: 2px solid rgba(46, 213, 115, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .success-title {
+            color: #2ed573;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .info-label {
+            color: #a0a0c0;
+            font-size: 14px;
+        }
+        .info-value {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .seekbar-container {
+            background: rgba(138, 43, 226, 0.1);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .seekbar-title {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .seekbar-wrapper {
+            margin-bottom: 15px;
+        }
+        .seekbar-label {
+            display: flex;
+            justify-content: space-between;
+            color: #a0a0c0;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .seekbar-value {
+            color: #8a2be2;
+            font-weight: 600;
+        }
+        .seekbar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+        .seekbar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .aimbot-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .aimbot-btn {
+            background: rgba(138, 43, 226, 0.2);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            color: #a0a0c0;
+            cursor: pointer;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .aimbot-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #8a2be2;
+            color: #fff;
+        }
+        .inject-button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 18px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .inject-button:hover {
+            transform: translateY(-3px);
+        }
+        .functions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .function-card {
+            background: linear-gradient(145deg, rgba(138, 43, 226, 0.1), rgba(102, 126, 234, 0.1));
+            border: 2px solid rgba(138, 43, 226, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+        }
+        .function-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(138, 43, 226, 0.6);
+        }
+        .function-card.active {
+            background: linear-gradient(145deg, rgba(138, 43, 226, 0.3), rgba(102, 126, 234, 0.3));
+            border-color: #8a2be2;
+        }
+        .function-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        .function-title {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .function-desc {
+            color: #a0a0c0;
+            font-size: 12px;
+        }
+        .toggle-switch {
+            width: 50px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            margin-top: 10px;
+            position: relative;
+        }
+        .toggle-switch.active {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(24px);
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 2px solid rgba(138, 43, 226, 0.3);
+        }
+        .footer-text {
+            color: #a0a0c0;
+            font-size: 12px;
+        }
+        .website-link {
+            color: #8a2be2;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(138, 43, 226, 0.2);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .hidden {
+            display: none;
+        }
+        .blur {
+            filter: blur(5px);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🎭</div>
+                <div class="logo-text">
+                    <h1>YURI MODZ</h1>
+                    <p>Professional Mod Menu</p>
+                </div>
+            </div>
+            <div>
+                <div class="status">
+                    <div class="status-dot"></div>
+                    <span class="status-text">Online</span>
+                </div>
+                <div class="device-info" id="deviceInfo"></div>
+            </div>
+        </div>
+
+        <div class="login-section" id="loginSection">
+            <div class="login-icon">🔐</div>
+            <h2 class="login-title">Acesso Restrito</h2>
+            <p class="login-subtitle">Digite a key para desbloquear</p>
+            
+            <input type="text" id="keyInput" class="key-input" placeholder="Digite a key...">
+            <button class="login-button" onclick="validar()">🔓 VALIDAR KEY</button>
+
+            <div id="erro" class="hidden"></div>
+            <div id="tentativas" class="hidden"></div>
+        </div>
+
+        <div class="success-dialog hidden" id="sucesso">
+            <h2 class="success-title">✅ Acesso Autorizado</h2>
+            <div class="info-row">
+                <span class="info-label">Key:</span>
+                <span class="info-value" id="showKey"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Status:</span>
+                <span class="info-value" style="color: #2ed573;">🟢 Online</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Dispositivo:</span>
+                <span class="info-value" id="showDevice"></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Horário:</span>
+                <span class="info-value" id="showTime"></span>
+            </div>
+        </div>
+
+        <div id="funcoes" class="blur">
+            <div class="seekbar-container">
+                <div class="seekbar-title">🎯 Configurações de AIMBOT</div>
+                
+                <div class="seekbar-wrapper">
+                    <div class="seekbar-label">
+                        <span>Precisão</span>
+                        <span class="seekbar-value" id="v1">50%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="seekbar" id="s1" oninput="document.getElementById('v1').textContent=this.value+'%'">
+                </div>
+
+                <div class="seekbar-wrapper">
+                    <div class="seekbar-label">
+                        <span>Velocidade</span>
+                        <span class="seekbar-value" id="v2">50%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="seekbar" id="s2" oninput="document.getElementById('v2').textContent=this.value+'%'">
+                </div>
+
+                <div class="seekbar-wrapper">
+                    <div class="seekbar-label">
+                        <span>Distância</span>
+                        <span class="seekbar-value" id="v3">50m</span>
+                    </div>
+                    <input type="range" min="0" max="200" value="50" class="seekbar" id="s3" oninput="document.getElementById('v3').textContent=this.value+'m'">
+                </div>
+
+                <div class="aimbot-options">
+                    <div class="aimbot-btn active" onclick="selParte(this)">🎯 Cabeça</div>
+                    <div class="aimbot-btn" onclick="selParte(this)">🎯 Pescoço</div>
+                    <div class="aimbot-btn" onclick="selParte(this)">🎯 Quadril</div>
+                </div>
+            </div>
+
+            <button class="inject-button" onclick="injetar()">🚀 INJETAR FUNÇÕES</button>
+
+            <div class="functions-grid">
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">🎯</div>
+                    <div class="function-title">AIMBOT</div>
+                    <div class="function-desc">Mira automática</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">👁️</div>
+                    <div class="function-title">ESP</div>
+                    <div class="function-desc">Visão de parede</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">⚡</div>
+                    <div class="function-title">SPEED HACK</div>
+                    <div class="function-desc">Velocidade aumentada</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">🚀</div>
+                    <div class="function-title">FLY MODE</div>
+                    <div class="function-desc">Modo de voo</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">👻</div>
+                    <div class="function-title">NO CLIP</div>
+                    <div class="function-desc">Atravessar paredes</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">🌀</div>
+                    <div class="function-title">TELEPORT</div>
+                    <div class="function-desc">Teletransporte</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">🛡️</div>
+                    <div class="function-title">GOD MODE</div>
+                    <div class="function-desc">Invencibilidade</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">🔓</div>
+                    <div class="function-title">UNLOCK ALL</div>
+                    <div class="function-desc">Desbloquear tudo</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">🔒</div>
+                    <div class="function-title">ANTI-BAN</div>
+                    <div class="function-desc">Proteção contra ban</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">📡</div>
+                    <div class="function-title">RADAR HACK</div>
+                    <div class="function-desc">Mapa completo</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">🎮</div>
+                    <div class="function-title">NO RECOIL</div>
+                    <div class="function-desc">Sem recuo</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+
+                <div class="function-card" onclick="toggle(this)">
+                    <div class="function-icon">♾️</div>
+                    <div class="function-title">UNLIMITED</div>
+                    <div class="function-desc">Recursos ilimitados</div>
+                    <div class="toggle-switch"><div class="toggle-slider"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>
+                <div class="footer-text">Desenvolvido por Yuri MODZ</div>
+                <a href="#" class="website-link">🌐 yurimodz.com</a>
+            </div>
+            <div class="social-links">
+                <div class="social-btn">💬</div>
+                <div class="social-btn">▶️</div>
+                <div class="social-btn">📦</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const KEY="YURI MODZ";
+        let tent=5,block=false;
+        
+        function getDev(){
+            const u=
